@@ -1,6 +1,9 @@
-import { Text, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { styled } from 'nativewind';
+import { Text as RNText, TouchableOpacity as RNTouchableOpacity } from 'react-native';
 import { useTheme } from '@/context/ThemeProvider';
+
+const TouchableOpacity = styled(RNTouchableOpacity);
+const Text = styled(RNText);
 
 interface ButtonProps {
     onPress: () => void;
@@ -8,16 +11,18 @@ interface ButtonProps {
 }
 
 export default function Button({ onPress, title }: ButtonProps) {
+    const { theme } = useTheme();
 
-    const { theme, toggleTheme } = useTheme();
     return (
         <TouchableOpacity
             onPress={onPress}
-            className={`${theme === 'dark' ? 'bg-red-500' : 'bg-light-primary'} px-4 py-2 rounded-lg`}
+            className={`${theme === 'dark' ? 'bg-dark-primary' : 'bg-light-primary'
+                } px-4 py-3 rounded-lg items-center`}
         >
-            <Text className="text-white font-medium">
+            <Text className={`${theme === 'dark' ? 'text-light-text-primary' : 'text-dark-text-primary'
+                } font-medium`}>
                 {title}
             </Text>
         </TouchableOpacity>
-    )
+    );
 }

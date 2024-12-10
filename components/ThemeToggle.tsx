@@ -1,5 +1,9 @@
-import { Pressable, Text } from 'react-native';
+import { styled } from 'nativewind';
+import { Pressable as RNPressable } from 'react-native';
 import { useTheme } from '@/context/ThemeProvider';
+import { Feather } from '@expo/vector-icons';
+
+const Pressable = styled(RNPressable);
 
 export function ThemeToggle() {
     const { theme, toggleTheme } = useTheme();
@@ -7,14 +11,14 @@ export function ThemeToggle() {
     return (
         <Pressable
             onPress={toggleTheme}
-            className="p-4"
+            className={`p-3 rounded-full ${theme === 'light' ? 'bg-light-surface' : 'bg-dark-surface'
+                }`}
         >
-            <Text className={`${theme === 'light'
-                ? 'text-light-text-primary '
-                : 'text-dark-text-primary '
-                }`}>
-                Toggle Theme ({theme})
-            </Text>
+            <Feather
+                name={theme === 'light' ? 'sun' : 'moon'}
+                size={24}
+                color={theme === 'light' ? '#1a1a1a' : '#ffffff'}
+            />
         </Pressable>
     );
 }
